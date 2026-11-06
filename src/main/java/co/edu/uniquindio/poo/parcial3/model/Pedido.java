@@ -5,13 +5,16 @@ public class Pedido {
     private String nombreCliente;
     private EstadoPedido estadoPedido;
     private TipoPan tipoPan;
+    private int cantidadUnidades;
 
 
-    public Pedido(String codigoPedido, String nombreCliente, EstadoPedido estadoPedido, TipoPan tipoPan) {
+    public Pedido(String codigoPedido, String nombreCliente,
+                  EstadoPedido estadoPedido, TipoPan tipoPan, int cantidadUnidades) {
         this.codigoPedido = codigoPedido;
         this.nombreCliente = nombreCliente;
         this.estadoPedido = estadoPedido;
         this.tipoPan = tipoPan;
+        this.cantidadUnidades= cantidadUnidades;
     }
 
     public String getCodigoPedido() {
@@ -40,5 +43,13 @@ public class Pedido {
 
     public void setTipoPan(TipoPan tipoPan) {
         this.tipoPan = tipoPan;
+    }
+
+    public int getCantidadUnidades() {
+        return cantidadUnidades;
+    }
+
+    public void setCantidadUnidades(int cantidadUnidades) {
+        this.cantidadUnidades = cantidadUnidades;
     }
 }
