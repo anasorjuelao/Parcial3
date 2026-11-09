@@ -63,21 +63,29 @@ public class Panaderia {
     }
 
     //Segundo metodo solicitado
-    public void asignarPedido(Empleado empleado, String codigoPedido,Pedido pedido){
+    public void asignarPedido(String codigoPedido){
+
+        Optional <Pedido> pedidoEncontrado = buscarPedido(codigoPedido);
+        if(!pedidoEncontrado.isPresent()){
+            throw new IllegalArgumentException("No existe un pedido con este codigo.");
+        }
+        Pedido pedido = pedidoEncontrado.get();
 
         if(pedido.getEstadoPedido() == EstadoPedido.CANCELADO ||
                 pedido.getEstadoPedido() == EstadoPedido.ASIGNADO){
-            throw new IllegalArgumentException("No se puede asignar este pedido.");
+            throw new IllegalStateException("No se puede asignar este pedido.");
         }
 
         Empleado empleadoDisponible= null;
         int menorTiempo=100000;
-        // el tiempo de los panaderos
+        // el tiempo de los panaderos (los cajeros no producen)
         for(Empleado e:listaEmpleados){
-            int minutos= e.minutosGastados(pedido);
-            if(minutos<= e.getMinutosDisponibles() && minutos < menorTiempo){
-                empleadoDisponible= e;
-                menorTiempo = minutos;
+            if(e.getTipoEmpleado() != TipoEmpleado.CAJERO){
+                int minutos= e.minutosGastados(pedido);
+                if(minutos<= e.getMinutosDisponibles() && minutos < menorTiempo){
+                    empleadoDisponible= e;
+                    menorTiempo = minutos;
+                }
             }
         }
         if(empleadoDisponible == null){
@@ -88,21 +96,41 @@ public class Panaderia {
         //Descontar el tiempo
         empleadoDisponible.setMinutosDisponibles(empleadoDisponible.
                 getMinutosDisponibles() - menorTiempo);
+        //Guardar quien atiende el pedido y los minutos reservados
+        pedido.setCodigoEmpleado(empleadoDisponible.getCodigo());
+        pedido.setMinutosReservados(menorTiempo);
         //Cambiar estado pedido
         pedido.setEstadoPedido(EstadoPedido.ASIGNADO);
     }
 
     //Metodo para cancelar un pedido
-    public void cancelarPedido(Pedido pedido, Empleado empleado){
+    public void cancelarPedido(String codigoPedido){
+
+        Optional <Pedido> pedidoEncontrado = buscarPedido(codigoPedido);
+        if(!pedidoEncontrado.isPresent()){
+            throw new IllegalArgumentException("No existe un pedido con este codigo.");
+        }
+        Pedido pedido = pedidoEncontrado.get();
 
         if(pedido.getEstadoPedido() == EstadoPedido.PENDIENTE){
             pedido.setEstadoPedido(EstadoPedido.CANCELADO);
         } else if(pedido.getEstadoPedido() == EstadoPedido.ASIGNADO){
-            pedido.setEstadoPedido(EstadoPedido.CANCELADO);
+            Empleado empleado = buscarEmpleado(pedido.getCodigoEmpleado());
             empleado.setMinutosDisponibles(empleado.getMinutosDisponibles() +
-                    empleado.minutosGastados(pedido));
+                    pedido.getMinutosReservados());
+            pedido.setEstadoPedido(EstadoPedido.CANCELADO);
         }else {
             throw new IllegalStateException("No se puede cancelar este pedido.");
         }
+    }
+
+    //Buscar un empleado por su codigo
+    private Empleado buscarEmpleado(String codigo){
+        for(Empleado e: listaEmpleados){
+            if(e.getCodigo().equals(codigo)){
+                return e;
+            }
+        }
+        return null;
     }
 }

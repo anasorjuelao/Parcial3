@@ -6,6 +6,8 @@ public class Pedido {
     private EstadoPedido estadoPedido;
     private TipoPan tipoPan;
     private int cantidadUnidades;
+    private String codigoEmpleado;
+    private int minutosReservados;
 
 
     public Pedido(String codigoPedido, String nombreCliente,
@@ -53,20 +55,36 @@ public class Pedido {
         this.cantidadUnidades = cantidadUnidades;
     }
 
+    public String getCodigoEmpleado() {
+        return codigoEmpleado;
+    }
+
+    public void setCodigoEmpleado(String codigoEmpleado) {
+        this.codigoEmpleado = codigoEmpleado;
+    }
+
+    public int getMinutosReservados() {
+        return minutosReservados;
+    }
+
+    public void setMinutosReservados(int minutosReservados) {
+        this.minutosReservados = minutosReservados;
+    }
+
     //Calcular tiempo por cada tipo de pan
     public int calcularMinutosA(){
         int horasInvertidas=0;
-            int bandejas=cantidadUnidades/12;
-            if(tipoPan == TipoPan.TRADICIONAL) {
-                horasInvertidas += (float) (bandejas * 30);
-            }else{
-                horasInvertidas+= (float) (bandejas * 40);
-            }
+        int bandejas=(cantidadUnidades + 11)/12;
+        if(tipoPan == TipoPan.TRADICIONAL) {
+            horasInvertidas += (float) (bandejas * 30);
+        }else{
+            horasInvertidas+= (float) (bandejas * 40);
+        }
         return horasInvertidas;
     }
     public int calcularMinutosI(){
         int horasInvertidas=0;
-        int lotes=cantidadUnidades/30;
+        int lotes=(cantidadUnidades + 29)/30;
         if(tipoPan == TipoPan.TRADICIONAL) {
             horasInvertidas += 20 + (float) (lotes * 25);
         }else{
