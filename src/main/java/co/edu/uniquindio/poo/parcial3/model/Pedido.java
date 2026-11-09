@@ -52,4 +52,27 @@ public class Pedido {
     public void setCantidadUnidades(int cantidadUnidades) {
         this.cantidadUnidades = cantidadUnidades;
     }
+
+    //Calcular tiempo por cada tipo de pan
+    public int calcularMinutosA(){
+        int horasInvertidas=0;
+            int bandejas=cantidadUnidades/12;
+            if(tipoPan == TipoPan.TRADICIONAL) {
+                horasInvertidas += (float) (bandejas * 30);
+            }else{
+                horasInvertidas+= (float) (bandejas * 40);
+            }
+        return horasInvertidas;
+    }
+    public int calcularMinutosI(){
+        int horasInvertidas=0;
+        int lotes=cantidadUnidades/30;
+        if(tipoPan == TipoPan.TRADICIONAL) {
+            horasInvertidas += 20 + (float) (lotes * 25);
+        }else{
+            horasInvertidas+= 20+ (float)  (lotes * 35);
+        }
+        return horasInvertidas;
+    }
+
 }
