@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PanaderiaTest {
+public class PanaderiaTest { 
 
     //Prueba 1: Registrar P01 por 25 panes tradicionales
     @Test
