@@ -6,5 +6,6 @@ module co.edu.uniquindio.poo.parcial3 {
     exports co.edu.uniquindio.poo.parcial3;
     exports co.edu.uniquindio.poo.parcial3.model;
     exports co.edu.uniquindio.poo.parcial3.viewController;
+    exports co.edu.uniquindio.poo.parcial3.controller;
     opens co.edu.uniquindio.poo.parcial3.viewController to javafx.fxml;
 }
