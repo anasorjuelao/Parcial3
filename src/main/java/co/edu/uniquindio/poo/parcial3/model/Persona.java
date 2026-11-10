@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.parcial3.model;
 
-public class Persona {
+public abstract class Persona {
 
     public String nombre;
     public String cedula;

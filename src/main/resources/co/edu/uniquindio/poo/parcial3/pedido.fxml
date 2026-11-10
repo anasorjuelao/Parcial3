@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="820.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.parcial3.viewController.PedidoViewController">
+    <children>
+        <VBox spacing="12.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+            <children>
+                <Label text="Gestión de Pedidos">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <GridPane hgap="10.0" vgap="8.0">
+                    <children>
+                        <Label text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="txtCodigo" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="Cliente:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <TextField fx:id="txtCliente" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label text="Tipo de pan:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cmbTipoPan" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Cantidad:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtCantidad" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+
+                <HBox spacing="10.0">
+                    <children>
+                        <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#onRegistrarPedido" text="Registrar pedido" />
+                        <Button fx:id="btnAsignar" mnemonicParsing="false" onAction="#onAsignarPedido" text="Asignar pedido" />
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#onCancelarPedido" text="Cancelar pedido" />
+                        <Button fx:id="btnLimpiar" mnemonicParsing="false" onAction="#onLimpiar" text="Limpiar" />
+                    </children>
+                </HBox>
+
+                <Label text="Historial de pedidos" />
+                <TableView fx:id="tblPedidos" prefHeight="230.0">
+                    <columns>
+                        <TableColumn fx:id="tbcCodigo" prefWidth="80.0" text="Código" />
+                        <TableColumn fx:id="tbcCliente" prefWidth="140.0" text="Cliente" />
+                        <TableColumn fx:id="tbcTipoPan" prefWidth="110.0" text="Tipo de pan" />
+                        <TableColumn fx:id="tbcCantidad" prefWidth="80.0" text="Cantidad" />
+                        <TableColumn fx:id="tbcEstado" prefWidth="100.0" text="Estado" />
+                        <TableColumn fx:id="tbcEmpleado" prefWidth="110.0" text="Empleado" />
+                        <TableColumn fx:id="tbcMinutos" prefWidth="140.0" text="Min. reservados" />
+                    </columns>
+                </TableView>
+
+                <Label text="Empleados (minutos disponibles)" />
+                <TableView fx:id="tblEmpleados" prefHeight="150.0">
+                    <columns>
+                        <TableColumn fx:id="tbcCodigoEmp" prefWidth="90.0" text="Código" />
+                        <TableColumn fx:id="tbcNombreEmp" prefWidth="160.0" text="Nombre" />
+                        <TableColumn fx:id="tbcTipoEmp" prefWidth="200.0" text="Tipo" />
+                        <TableColumn fx:id="tbcMinutosEmp" prefWidth="160.0" text="Min. disponibles" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
